@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hick's Law</title>
+
+        <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
+        <link rel="stylesheet" href="css/normalize.css" />
+        <link rel="stylesheet" href="css/skeleton.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+        <link rel="stylesheet" href="css/style.css" />
+
+    </head>
+    <body>
+        
+        <div class="header">
+            <div class="container">
+
+                    <br>
+                    <span style="text-transform: uppercase; font-size: 1.8rem; color:#FF7C00;">Explorable Explanation </span>
+                <h1 class="heading1 center">Desiging better interfaces, and Hick's Law</h1>  
+                <br>
+                <div class="container-ak">
+                    Hick's law, or the Hick–Hyman law, named after British and American psychologists William Edmund Hick and Ray Hyman, describes the time it takes for a person to make a decision as a result of the possible choices he or she has: increasing the number of choices will increase the decision time logarithmically.
+                    <br><br>
+                    Given n equally probable choices, the average reaction time T required to choose among the choices is approximately:
+
+                    <br>
+                    <br>
+                    <!-- $$T =  b*log(n+1)$$ -->
+                    <span style="margin-left: 50px;">\(T = a + b*log_2(n+1)\)</span>
+                    <br><br>
+                    where coefficients \(a\) and  \(b\) depend  on  context  conditions,  including the  way  the choices are presented and the user’s degree of familiarity with the subject.
+
+  <br>
+  <br>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="regular grayBg">
+            <br>
+
+
+            <div class="container">
+                <h2 class="heading2 center">Wait, how does this apply to UX? </h2>
+                <br>
+                <div class="container-ak">
+                        Hick's law is sometimes cited to justify menu design decisions. For example, to find a given word (e.g. the name of a command) in a randomly ordered word list (e.g. a menu), scanning of each word in the list is required, consuming linear time, so Hick's law does not apply. However, if the list is alphabetical and the user knows the name of the command, he or she may be able to use a subdividing strategy that works in logarithmic time.
+
+                        <br><br>
+                        <figure>
+                            <img src="img/amazonMenu.png" class="images" alt="">
+                            <figcaption class="images">The menu is divided into categories so that people can find what they are looking for quick!</figcaption>
+                        </figure>
+
+                        
+
+                        <figure>
+                                <img src="img/amazonMenuExpanded.png" class="images" alt="">
+                                <figcaption class="images">The same menu when expanded is harder to browse and less user friendly</figcaption>
+                            </figure>
+
+                </div>
+            </div>
+
+            <br>
+
+        </div>
+
+        <div class="regular">
+                <br>
+    
+    
+                <div class="container">
+                    <h2 class="heading2 center">Linear vs Sublinear time patterns </h2>
+                    <br>
+                    <div class="container-ak">
+                           To understand cases in which Hick's law predicts time as a linear function and cases in which it predicts time as a sublinear function, let's go through an activity.
+                    </div>
+
+
+                            <br><br>
+
+                            <label for="linear">Set number of colors to choose from: </label>
+                            <select class="DropdownClass" name="Count" id="linear">
+                                    <option value="" selected disabled hidden>Choose here</option>
+                                    <option value="2">2 colors</option>
+                                    <option value="3">3 colors</option>
+                                    <option value="4">4 colors</option>
+                                    <option value="5">5 colors</option>
+                                    <option value="6">6 colors</option>
+                                    <option value="7">7 colors</option>
+                                    <option value="8">8 colors</option>
+
+                            </select>
+
+                            <button class="linearButton">Start</button>
+
+                            <br><br>
+
+                            <div class="showLinear">
+
+                                <svg class="CommonAttribute" width="240" height="240">
+                                    <rect width="200" height="200"  />
+                                </svg>
+                                <svg  class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200"  />
+                                </svg>
+                                <svg  class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" />
+                                </svg>
+                                <svg  class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" />
+                                </svg>
+                                <svg  class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" />
+                                </svg>
+                                <svg class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" />
+                                </svg>
+                                <svg  class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" />
+                                </svg>
+                                <svg  class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" />
+                                </svg>
+
+                            </div>
+
+
+
+                            <div id="timeLinear">Time taken: </div>
+
+
+
+                   
+                </div>
+    
+                
+            </div>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+    </body>
+</html>
