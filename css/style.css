@@ -55,6 +55,8 @@ body{
     font-size: 2rem;
     text-align: center;
     color:black;
+    font-weight: 700;
+    padding-top: .7rem;
 }
 
 
@@ -71,4 +73,41 @@ body{
     font-weight: 600;
     color: white;
     background:#003EFF;
+}
+
+
+
+/* D3 Styles */
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.dot {
+  
+}
+
+.tooltip {
+  position: absolute;
+  width: 200px;
+  height: 28px;
+  pointer-events: none;
+}
+
+
+
+.CommonAttribute:hover{
+
+        position: relative;
+
+        animation-duration: 3s;
+
+
+}
+
+ol li{
+    padding-left: 3.2rem;
 }
