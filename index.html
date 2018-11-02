@@ -26,11 +26,13 @@
                     <br>
 
                     <div id="scaleme">
-                    <span style="text-transform: uppercase; font-size: 1.4rem; color:#FF7C00;">Explorable Explanation </span>
+                    <span style="text-transform: uppercase; font-size: 1.8rem; font-weight: 400; color:#FF7C00;">Explorable Explanation </span>
                 <h1 class="heading1 center">Desiging better interfaces with Hick's Law</h1>  
                 <br>
                 <div class="container-ak">
-                    Hick's law describes the time it takes for a person to make a decision as a result of the possible choices he or she has: increasing the number of choices will increase the decision time.
+                    Hick's law describes the time it takes for a person to make a decision as a result of the possible choices he or she has: increasing the number of choices will increase the decision time. 
+                    
+                    <a target="_blank" href="https://en.wikipedia.org/wiki/Hick%27s_law">[Wikipedia]</a>
                     <br><br>
                     Given n equally probable choices, the average reaction time T required to choose among the choices is approximately:
 
@@ -65,7 +67,7 @@
 
                         <br> <br>
 
-                        <strong>  Step 1: </strong> Let's decide the number of colors to choose from (start at a small number like 2 colors)
+                        <strong style="font-weight:600;">  Step 1: </strong> Let's decide the number of colors to choose from (start at a large number like 8 colors)
 
                         <br>
 
@@ -88,7 +90,7 @@
                         <br><br><br>
 
 
-                        <strong>  Step 2: </strong> See the black boxes below? They will show the random colors and a timer will start once you hit <strong> SHOW ME COLORS</strong>.
+                        <strong style="font-weight:600;">  Step 2: </strong> See the black boxes below? They will show the random colors and a timer will start once you hit <strong> SHOW ME COLORS</strong>.
                         Just click on your favorite color from the given set of random colors after hitting the button.
                         <br><br>
                         
@@ -133,7 +135,7 @@
 
 
 
-                        <strong>  Step 3: </strong><div style="display: inline" id="timeLinear">Time taken to select color: </div>
+                        <strong style="font-weight:600;">  Step 3: </strong><div style="display: inline" id="timeLinear">Time taken to select color: </div>
                         <br>
                         <div style="display: inline; margin-left: 8rem;" id="avgTimeLinear">Current average time for these number of choices is: </div>
 
@@ -141,12 +143,12 @@
                         <br>
 
 
-                        <strong>  Step 4: </strong> Go back to <STRONg> Step 2 </STRONg> and complete the trial a few more times to get a better representation of your reaction time.
+                        <strong style="font-weight:600;">  Step 4: </strong> Go back to <STRONg> Step 2 </STRONg> and complete the trial a few more times to get a better representation of your reaction time.
 
                         <br>
                         <br>
 
-                        <strong>  Step 5: </strong> Go back to <STRONg> Step 1 </STRONg> and change the number of color options. On the very minimum do this for a small number of choice (for example, 3 choices) and a large number of choices (say 8, choices).
+                        <strong style="font-weight:600;">  Step 5: </strong> Scroll below to see your results (if you want) and then go back to <STRONg> Step 1 </STRONg> and change the number of color options. On the very minimum do this for a small number of choice (for example, 3 choices) and a large number of choices (say 8, choices).
 
 
                         <br>
@@ -157,7 +159,7 @@
 
                         <h2 class="heading2 center" style="font-weight: 700;"> Results </h2>
                         <br>
-                        The scatter plot below shows your trials which each dot representing the color you selected and the time you took. The red line is generated using regression and it predicts how your time.
+                        The scatter plot below shows your trials which each dot representing the color you selected and the time you took. The red line is generated using regression and it predicts how your time. You can always go back and complete more trials to see how your result changes.
 
                         <br> <br>
 
@@ -167,7 +169,7 @@
 
                         <br>                        <br>
 
-                        <strong>However, there are a few caveats..</strong>
+                        <strong class="heading2" style="padding-bottom:1.5rem;">However, there are a few caveats..</strong>
                         <br>
                         Most probably your time went up as the number of choices increased, however, if it did not, there could be multiple reasons as to why it did not:
                         <br>
@@ -205,25 +207,50 @@
     
     
                 <div class="container">
-                    <h2 class="heading2 center">& How does this apply to UX? </h2>
+                    <h2 class="heading2 center">But how does this apply to UX? </h2>
                     <br>
                     <div class="container-ak">
-                            Hick's law is sometimes cited to justify menu design decisions. For example, to find a given word (e.g. the name of a command) in a randomly ordered word list (e.g. a menu), scanning of each word in the list is required, consuming linear time, so Hick's law does not apply. However, if the list is alphabetical and the user knows the name of the command, he or she may be able to use a subdividing strategy that works in logarithmic time. 
+                            Hick's law is often cited to justify menu design decisions. If menus are really long, it will take a lot of time for the user to find something, as the number of choices are large.
+
                             <br><br>
-                            In the examples given below, the first example shows an Amazon menu with options divided into categories while the second option shows a menu without deep categorization. The time taken to find the same item would be lesser in first menu given the user is not familiar with menus, as it is organized in a hierarchy with better information scent.
-    
-                            <br><br>
-                            <figure>
-                                <img src="img/amazonMenuExpanded.png" class="images" alt="">
-                                <figcaption class="images">The menu is divided into categories so that people can find what they are looking for quick!</figcaption>
-                            </figure>
-    
+
+                            For example, in the Amazon Menu shown below try to find <strong> <u> Exam Central</u></strong>. 
+                            <br> (Note: Menu has been edited for this exercise).
                             <br>
-    
+                            <br> 
                             <figure>
-                                    <img src="img/amazonMenu.png" class="images" alt="">
-                                    <figcaption class="images">The same menu when expanded is harder to browse and less user friendly</figcaption>
+                                    <img src="img/amazonMenuNew.png" class="images" alt="">
+
+                            </figure>
+
+                            <br> <br>
+
+                            Did you find it?
+
+                            <br> <br>
+
+                            If not, don't worry. It is really hard to find anything in such a menu. (BTW it's in the second group in last column)
+
+                            <br> <br>
+                            
+                            This is why menus aren't designed like this. Following an extension of Hick's law, if there is a categorization of data, the taken to find items increases are the options increase but it does in a sub-linear manner. 
+
+                            <br> <br>
+
+                            To demonstrate the point, look at the menu below and try to find the same word, <strong> <u> Exam Central</u></strong>.
+
+                            <br> <br>
+
+                            <figure>
+                                    <img src="img/amazonNew.png" class="images" alt="">
                                 </figure>
+
+                                <br> 
+
+                                Anything is easier to find in this menu because of better categorization and information scent. If you were searching for say Televisions, you know they would either be in the category of TV, Appliances and Electronics. Compared to the first menu, you would have had to manually scan the list for all items. In this case you need to scan the list but a smaller list (list of categories).
+
+                                <br>
+                                <br>
                       
                             </div>
 
@@ -237,7 +264,7 @@
 
 
 
-        <div class="regular2">
+        <!-- <div class="regular2">
             <br><br>
     
     
@@ -322,7 +349,7 @@
                 
     
                 
-        </div>
+        </div> -->
             <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
             <script src="https://d3js.org/d3.v4.min.js"></script>
 

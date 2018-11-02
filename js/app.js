@@ -1,6 +1,6 @@
 var linearColors = ["#FF530D","#E82C0C","#FF0000","#E80C7A","#FF0DFF","#A40DFF","#0DFFF7","#0DFF10","#FFC700"];
 
-$('.CommonAttribute').hide().slice( 0, 2 ).show();
+
 
 var newArray = [];
 
@@ -69,11 +69,12 @@ $(".CommonAttribute").click(function(){
 
     if(currentIndex == 2){
         // To accomodate for time taken to move to boxes
-        times[currentIndex].push((endTime - startTime - 200));
-        scatterTimes.push({"x": currentIndex, "y": (endTime - startTime - 200), "color": $(this).css("fill") });
-        $('#timeLinear').text( "Time taken: " + (endTime - startTime - 200) + " ms");
+        times[currentIndex].push((endTime - startTime - 300));
+        scatterTimes.push({"x": currentIndex, "y": (endTime - startTime - 300), "color": $(this).css("fill") });
+        $('#timeLinear').text( "Time taken: " + (endTime - startTime - 300) + " ms");
 
     }
+
     else{
     times[currentIndex].push((endTime - startTime));
     scatterTimes.push({"x": currentIndex, "y": (endTime - startTime), "color": $(this).css("fill") });

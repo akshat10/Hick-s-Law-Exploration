@@ -47,6 +47,8 @@ body{
 
 .grayBg{
     background-color: #e8e8e8;
+    padding-bottom: 2.4rem;
+
 }
 .regular{
     color:black;
@@ -209,3 +211,12 @@ ol li{
 	background: #0e83cd;
 }
     
+
+a{
+    color: white;
+
+}
+
+a:hover{
+    color: #fff;
+}
