@@ -1,17 +1,17 @@
-var linearColors = ["#FF530D","#E82C0C","#FF0000","#E80C7A","#FF0DFF","#A40DFF","#0DFFF7","#0DFF10","#FFC700"];
+var CatColors = ["#FF530D","#E82C0C","#FF0000","#E80C7A","#FF0DFF","#A40DFF","#0DFFF7","#0DFF10","#FFC700"];
 
-$('.CommonAttribute').hide().slice( 0, 2 ).show();
+$('.CatCommonAttribute').hide().slice( 0, 2 ).show();
 
-var newArray = [];
+var CatnewArray = [];
 
-var startTime;
-var endTime; 
+var CatstartTime;
+var CatendTime; 
 
-var currentIndex;
+var CatcurrentIndex;
 
-var scatterExist = false;
+var CatscatterExist = false;
 
-var times = {
+var Cattimes = {
     2:[],
     3:[],
     4:[],
@@ -21,7 +21,7 @@ var times = {
     8:[],
 };
 
-var Atimes = {
+var CatAtimes = {
     2:[],
     3:[],
     4:[],
@@ -31,29 +31,29 @@ var Atimes = {
     8:[],
 };
 
-var scatterTimes = [];
+var CatscatterTimes = [];
 
-var scatterAvgTimes = [];
+var CatscatterAvgTimes = [];
 
-var avgLinearTime={};
+var avgCatTime={};
 
 
 
-$(".DropdownClass").change(function () {
+$(".CatDropdownClass").change(function () {
 
     if ($(this).attr('name') == 'Count') {
         var number = $(this).val();
         currentIndex = number;
-        $('.CommonAttribute').hide().slice( 0, number ).show();
-        $('.CommonAttribute').each(function(index){
+        $('.CatCommonAttribute').hide().slice( 0, number ).show();
+        $('.CatCommonAttribute').each(function(index){
             $(this).css("fill", "black");
         });
     }
 });
 
-$(".linearButton").click(function(){
+$(".CatButton").click(function(){
 
-    $('.CommonAttribute').each(function(index){
+    $('.CatCommonAttribute').each(function(index){
         $(this).css("fill",'#'+(Math.random()*0xFF9FFA<<0).toString(16));
     });
 
@@ -61,7 +61,7 @@ $(".linearButton").click(function(){
 
 });
 
-$(".CommonAttribute").click(function(){
+$(".CatCommonAttribute").click(function(){
     // something();
     endTime = new Date().getTime();
 
@@ -69,31 +69,31 @@ $(".CommonAttribute").click(function(){
 
     if(currentIndex == 2){
         // To accomodate for time taken to move to boxes
-        times[currentIndex].push((endTime - startTime - 200));
-        scatterTimes.push({"x": currentIndex, "y": (endTime - startTime - 200), "color": $(this).css("fill") });
-        $('#timeLinear').text( "Time taken: " + (endTime - startTime - 200) + " ms");
+        Cattimes[currentIndex].push((endTime - startTime - 200));
+        CatscatterTimes.push({"x": currentIndex, "y": (endTime - startTime - 200), "color": $(this).css("fill") });
+        $('#timeCat').text( "Time taken: " + (endTime - startTime - 200) + " ms");
 
     }
     else{
-    times[currentIndex].push((endTime - startTime));
-    scatterTimes.push({"x": currentIndex, "y": (endTime - startTime), "color": $(this).css("fill") });
-    $('#timeLinear').text( "Time taken: " + (endTime - startTime) + " ms");
+    Cattimes[currentIndex].push((endTime - startTime));
+    CatscatterTimes.push({"x": currentIndex, "y": (endTime - startTime), "color": $(this).css("fill") });
+    $('#timeCat').text( "Time taken: " + (endTime - startTime) + " ms");
 
     }
     
-    Atimes[currentIndex] = [];
+    CatAtimes[currentIndex] = [];
 
 
-    Atimes[currentIndex].push(average(times[currentIndex]).toFixed(2));
-    avgLinearTime[currentIndex] = average(times[currentIndex]).toFixed(2);
+    CatAtimes[currentIndex].push(average(times[currentIndex]).toFixed(2));
+    avgCatTime[currentIndex] = average(times[currentIndex]).toFixed(2);
  
-    $('#avgTimeLinear').text("Current average time for these number of choices is: " + average(times[currentIndex]).toFixed(2) );
+    $('#avgTimeCat').text("Current average time for these number of choices is: " + average(times[currentIndex]).toFixed(2) );
     
-    $('.CommonAttribute').each(function(index){
+    $('.CatCommonAttribute').each(function(index){
         $(this).css("fill", "black");
     });
 
-    updateScatterPlot(scatterTimes);
+    updateScatterPlot(CatscatterTimes);
     
   
 
@@ -158,10 +158,10 @@ var updateScatterPlot = (data) => {
       .data(data)
       .enter().append("circle")
       .attr("class", "dot")
-      .attr("r", 7.5)
+      .attr("r", 4.5)
       .attr("cx", function(d) { return x(d.x); })
       .attr("cy", function(d) { return y(d.y); })
-      .style("fill", function(d) { return d.color; })
+      .style("fill", function(d) { return "rgb(169,169,169)"; })
       .on("mouseover", function(d) {
         tooltip.transition()
             .duration(200)
@@ -243,7 +243,7 @@ var margin = {top: 40, right: 20, bottom: 30, left: 70},
         .data(data)
         .enter().append("circle")
         .attr("class", "dot")
-        .attr("r", 7.5)
+        .attr("r", 4.5)
         .attr("cx", function(d) { return x(d.x); })
         .attr("cy", function(d) { return y(d.y); })
         .style("fill", function(d) { return "rgb(169,169,169)"; })
@@ -296,7 +296,13 @@ var margin = {top: 40, right: 20, bottom: 30, left: 70},
        
 
 
-        
+        chart.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "18px") 
+        .style("text-decoration", "underline")  
+        .text("Hick's Law");
 
 
  
