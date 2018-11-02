@@ -1,357 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Lavanya Kumar SI 649 Individual Project</title>
-  <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-</head>
-<script src="https://fastcdn.org/D3.js/3.5.6/d3.min.js"></script>
+<html>
+    <head>
+        <title>Hick's Law</title>
+
+        <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
 
 
-<style> 
+        <link rel="stylesheet" href="css/normalize.css" />
+        <link rel="stylesheet" href="css/skeleton.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-/*.chart {
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+        <link rel="stylesheet" href="css/c3.min.css">
 
-}*/
+        <link rel="stylesheet" href="css/style.css" />
 
-.main text {
-    font: 10px sans-serif;  
-}
-
-.axis line, .axis path {
-    shape-rendering: crispEdges;
-    stroke: black;
-    fill: none;
-}
-
-.title_main {
-  font-family: 'Quicksand', sans-serif;
-  color: red;
-}
-
-.title_secondary {
-  font-family: 'Quicksand', sans-serif;
-  color: green;
-}
-
-.title{
-  font-family: 'Quicksand', sans-serif;
-}
-
-svg {
-  margin-left: 10%;
-}
-
-/*circle {
-    fill: steelblue;
-}*/
-
-a:hover{
-  text-decoration: none;
-}
-
-</style>
-
-<body>
-
-<div class="col-md-12 text-center" style="margin-bottom: 5%">
-<h1 class="title_main"> Hick's Law </h1>
-<h4 class="title"> SI 649 Individual Project Fall 2015</h4>
-<h4 class="title"> Lavanya Kumar </h4> </br></br>
-<p style="font-size: 120%; margin-bottom: 5%" class="col-md-10 col-md-offset-1 text-center"> Hick's Law states that the <strong>time it takes to make a decision increases as the number of alternatives or choices increase as well</strong>. While often observed in the space of User Interface Design, Hick's Law can also apply to almost any situation. For example, if you are at a restaurant that has a three page menu (10 items per page), Hick's Law predicts that it will take a longer time for you to make a decision and pick an item to order compared to when you are choosing an item from a one page menu (10 items per page). Below is set of interactive models and visualizations to try and present the concepts of Hick's Law.  </p>
-</div>
-
-<h3 class="title_main" style="margin-left:10%"><u> Directions </u></h3>
-
-<div class="col-md-12 text-center" style="margin-bottom: 5%">
-<p style="font-size: 120%" class="col-md-10 col-md-offset-1 text-center"> To begin, you will complete a series of tasks. These tasks require you to <strong>associate words with colors.</strong> You will notice that the number of circles displayed on the screen is associated with the dropdown menu on the left.</p>  
-<img src="images/instruction_1.png" style="border:solid 1px;"> </br></br></br></br></br>
-
-<p style="font-size: 120%" class="col-md-10 col-md-offset-1 text-center"> Next, click the <strong>"Start"</strong> button to see your first word.</p>
-<img src="images/instructions_2.png" style="border:solid 1px;"> </br></br></br></br></br>
-
-
-<p style="font-size: 120%" class="col-md-10 col-md-offset-1 text-center"> As soon as you click the <strong>"Start"</strong> button, your first word (in this case "Fear") will be revealed. However, <strong> the time will also start automatically!</strong> </p>
-<img src="images/instructions_3.png" style="border:solid 1px;"> </br></br></br></br></br>
-
-<p style="font-size: 120%" class="col-md-10 col-md-offset-1 text-center"> You are then timed until you click the color <strong>you feel best corresponds with the cue word</strong>. As soon as you click the colored circle, the next cue word appears, and your time starts again. </p>
-<img src="images/instructions_4.png" style="border:solid 1px;"> </br></br></br></br></br>
-
-<p style="font-size: 120%" class="col-md-10 col-md-offset-1 text-center"> Keep going until you are done with all the tasks! Then scroll down to view the response times for each of your cue words as well as your average response time. You will complete a total of three trials. </p>
-<img src="images/instructions_5.png" style="border:solid 1px;"> </br></br>
-
-</div>
-
-<hr style="color:blue;">
-
-<h3 class="title_secondary text-center"><strong> Let's Begin! Here is your first Trial. Click the "Start" button to begin.</strong></h3>
-
-<h3 class="title_main" style="margin-left:10%"><u> Trial 1 (3 Color Options) </u></h3>
-
-<div class="row col-md-10 col-md-offset-2">
-<div class="col-md-3">
-<!-- dropdown to select number of decision points -->
-<p class="title" style="font-size: 120%">Number of Circles:</p> <select name="number" class="form-control" onChange="jsDropDown('one',this.value)" id="numberDropDown">
-                   <option value="one">1</option>
-                   <option value="two">2</option>
-                   <option value="three" selected="selected">3</option>
-                   <option value="four">4</option>
-                   <option value="five">5</option>
-                   <option value="six">6</option>
-                   <option value="seven">7</option>
-                   <option value="eight">8</option>
-                   <option value="nine">9</option>
-                   </select>
-</div>
-
-<div class="col-md-7">
-<!-- actual decision points/ where the user clicks -->
-<img src="images/three.png" id="one" onclick='nextElement();stopButton()'>
-</div>
-</div>
-
-
-<!-- START BUTTON to click to next element -->
-<div class="col-md-12 center-block">
-<button onclick='startButton();nextElement()' type="button" class="btn btn-success btn-lg center-block">Start</button>
-</div>
-<div class="col-md-12" style="margin-bottom:5%">
-<!-- where the TASK and the TASK NUMBER print --> 
-<h1 class="title text-center"><span id="print">Your first word is...</span></h1> 
-<h1 class="title text-center"><span id="task_num"></span> / 9</h1> 
-</div>
-
-
-<div class="col-md-12 center-block">
-
-<div class="col-md-12">
-<button onclick='transform()' type="button" class="btn btn-primary btn-lg center-block">Transform</button>
-<p class="title text-center"> (Click the "Transform" button to cluster your times over the # of decision points as well as view your average time.) </p>
-</br></br>
-<p class="title text-center" style="font-size:120%">On average, it took you     <span id="avg_time" style="font-weight:bold; font-size:120%"></span> ms to make a decision with <span style="font-weight:bold; font-size: 120%">three</span> data points.</p> 
-</div>
-<!-- the chart goes here -->
-<div class="content" style="margin-left:5%">
-</div>
-
-
-</div>
-
-
-
-
-
-
-<!-- START JAVASCRIPT -->
-<script>
-//change the number of viewable datapoints based on the dropdown
-function jsDropDown(imageid,newimage) {
-        document.getElementById(imageid).src= "images/" + newimage + ".png";
-}
-
-var e = document.getElementById("numberDropDown");
-var decisionPointsText = e.options[e.selectedIndex].text;
-var decisionPointsNum = parseInt(decisionPointsText);
-
-//array of tasks
-var myArray = ["Fear", 
-               "Cleanliness", 
-               "Worry",
-               "Warmth",
-               "Chaos", 
-               "Happiness", 
-               "Wealth", 
-               "Optimism",
-               "Cool",
-               "Done! You have completed the first trial!"
-               ];
-var myIndex = 0;
-var print = document.getElementById('print');
-//Print first value of array right away.
-//print.innerHTML = myArray[0]; 
-
-
-//array of task number
-var myQuestionNumber = ["0","1","2","3","4","5","6","7","8","9"]
-var myQuestionIndex = 1;
-var task_num = document.getElementById('task_num');
-//Print first value of array right away.
-task_num.innerHTML = myQuestionNumber[0]; 
-
-
-//run through both arrays (tasks and task number) and stop at the last task
-function nextElement() {
-   print.innerHTML = myArray[myIndex];
-   myIndex = (myIndex+1)%(myArray.length);
-
-   task_num.innerHTML = myQuestionNumber[myQuestionIndex];
-   myQuestionIndex = (myQuestionIndex+1)%(myQuestionNumber.length);
-
-   console.log(myIndex)
-   if (myIndex == 10) {
-      alert("Done! You have completed the first set!")
-   }  
-};
-
-
-
-//start and stop button javascript
-var startTime;
-
-//start time
-function startButton() {
-    startTime = Date.now();
-
-}
-
-//all the d3.js that prepares the initial plot (not adjusting min/max to dataset... just keeping the plot standard)
-var margin = {top: 20, right: 15, bottom: 60, left: 60}
-      , width = 960 - margin.left - margin.right
-      , height = 500 - margin.top - margin.bottom;
-
-var x = d3.scale.linear()
-              .domain([0, 9]) //9 trials
-              .range([ 0, width ]);
-    
-    var y = d3.scale.linear()
-            .domain([0, 5000]) //5000 ms (hoping it doesn't take someone longer than 5 seconds to complete a task)
-            .range([ height, 0]);
- 
-    var chart = d3.select('body')
-  .append('svg:svg')
-  .attr('width', width + margin.right + margin.left)
-  .attr('height', height + margin.top + margin.bottom)
-  .attr('class', 'chart')
-
-    var main = chart.append('g')
-  .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-  .attr('width', width)
-  .attr('height', height)
-  .attr('class', 'main')   
+    </head>
+    <body>
         
-    // draw the x axis
-    var xAxis = d3.svg.axis()
-  .scale(x)
-  .orient('bottom');
+        <div class="header">
+            <div class="container">
+                <br>
+                    <br>
 
-    main.append('g')
-  .attr('transform', 'translate(0,' + height + ')')
-  .attr('class', 'main axis date')
-  .call(xAxis);
+                    <div id="scaleme">
+                    <span style="text-transform: uppercase; font-size: 1.4rem; color:#FF7C00;">Explorable Explanation </span>
+                <h1 class="heading1 center">Desiging better interfaces with Hick's Law</h1>  
+                <br>
+                <div class="container-ak">
+                    Hick's law, or the Hick–Hyman law, named after British and American psychologists William Edmund Hick and Ray Hyman, describes the time it takes for a person to make a decision as a result of the possible choices he or she has: increasing the number of choices will increase the decision time logarithmically.
+                    <br><br>
+                    Given n equally probable choices, the average reaction time T required to choose among the choices is approximately:
 
-    main.append("text")      // text label for the x axis
-        .attr("x", 400 )
-        .attr("y",  475 )
-        .style("text-anchor", "middle")
-        .style("font-size","20px")
-        .text("Task / # of Decision Points");
+                    <br>
+                    <br>
+                    <!-- $$T =  b*log(n+1)$$ -->
+                    <span style="margin-left: 50px;">\(T = a + b*log_2(n+1)\)</span>
+                    <br><br>
+                    where coefficients \(a\) and  \(b\) depend  on  context  conditions,  including the  way  the choices are presented and the user’s degree of familiarity with the subject.
 
-    // draw the y axis
-    var yAxis = d3.svg.axis()
-  .scale(y)
-  .orient('left');
+  <br>
+  <br><br>
+                </div>
+            </div>
+            </div>
 
-    main.append('g')
-  .attr('transform', 'translate(0,0)')
-  .attr('class', 'main axis date')
-  .call(yAxis);
+        </div>
 
-  main.append("text") 
-        .attr("transform","rotate(-90)")// text label for the y axis
-        .attr("y",  0 - margin.left )
-        .attr("x", 0 - (height/2) )
-        .attr("dy","1em")
-        .style("text-anchor", "middle")
-        .style("font-size","20px")
-        .text("Time Between Clicks (ms)");
-
-//where times are stored
-var times = [];
-
-function stopButton() { //when the image/decision point is clicked
-
-    if (startTime) {
-        var endTime = Date.now();
-        var difference = endTime - startTime;
-        var indexArray = myQuestionIndex-1;
-
-        //times store as object, want to push data to array with index
-        times.push (difference);
-        console.log(times);
-        console.log(decisionPointsNum);
-
-        var sum = 0;
-          for(var z = 0; z < times.length; z++ ){
-              sum += parseInt( times[z], 10 ); //don't forget to add the base
-          }
-          var avg_1 = sum/times.length;
-
-          console.log(avg_1)
-          window.avg_1 = avg_1;
-
-          //avg_time.innerHTML = parseInt(avg);
-          var avg_1 = avg_1;
-          localStorage.setItem("avg_1", avg_1);
-
-        
-        startTime = null;
-    } 
-
-    else {
-        alert('Click the Start button first');
-    }
+        <div class="regular grayBg">
+            <br><br>
 
 
+            <div class="container">
+                <h2 class="heading2 center">Wait, how does this apply to UX? </h2>
+                <br>
+                <div class="container-ak">
+                        Hick's law is sometimes cited to justify menu design decisions. For example, to find a given word (e.g. the name of a command) in a randomly ordered word list (e.g. a menu), scanning of each word in the list is required, consuming linear time, so Hick's law does not apply. However, if the list is alphabetical and the user knows the name of the command, he or she may be able to use a subdividing strategy that works in logarithmic time. 
+                        <br><br>
+                        In the examples given below, the first example shows an Amazon menu with options divided into categories while the second option shows a menu without deep categorization. The time taken to find the same item would be lesser in first menu given the user is not familiar with menus, as it is organized in a hierarchy with better information scent.
 
-//new times that are plotted in d3.js
-var new_times = [];
+                        <br><br>
+                        <figure>
+                            <img src="img/amazonMenu.png" class="images" alt="">
+                            <figcaption class="images">The menu is divided into categories so that people can find what they are looking for quick!</figcaption>
+                        </figure>
 
-for(var i in times) {
-    var num = parseInt(i) + 1;
-    new_times.push([num,times[i]]);
-    JSON.stringify(new_times);
-    console.log(new_times)
-}
+                        <br>
 
-    var g = main.append("svg:g"); 
+                        <figure>
+                                <img src="img/amazonMenuExpanded.png" class="images" alt="">
+                                <figcaption class="images">The same menu when expanded is harder to browse and less user friendly</figcaption>
+                            </figure>
+
+                </div>
+            </div>
+
+            <br>  <br>
+
+        </div>
+
+        <div class="regular">
+            <br><br>
     
-    circles = g.selectAll("scatter-dots")
-      .data(new_times)
-      .enter().append("svg:circle")
-          .attr("fill","blue")
-          .attr("cx", function (d,i) { return x(d[0]); } )
-          .attr("cy", function (d) { return y(d[1]); } )
-          .attr("r", 8);
+    
+                <div class="container">
+                    <h2 class="heading2 center">Linear vs Sublinear time patterns </h2>
+                    <br>
+                    <div class="container-ak">
+                        Expanding on the idea of organizing data in useful categories, let's go through two activities, one in which the data is presented without any clear hierarchy and the second activity in which data is presented in some hierarchy. 
+                        <br><br> <br>
 
- 
-
- startTime = Date.now(); 
-
-}
-
-
-
-function transform() {
-
-    selectedNum = ((numberDropDown.selectedIndex) + 1)
-    circles.transition().duration(2000)
-          .attr("fill","green")
-          .attr("cx", (100*selectedNum)-5)
-          //.attr("cy", avg);
-          avg_time.innerHTML = parseInt(avg_1);
-}
-</script>
-
-<a href="lakumar_pg2.html"><button type="button" class="btn btn-warning btn-lg center-block next_button" style="margin-top:15%; margin-bottom:5%">Click Here to Proceed to Trial 2</button></a>
-
-</br></br></br>
+                        <h3 class="heading2">Activity 1</h3> 
+                        For the first activity, let's assume you are desiging a system and you need to pick a primary color for the design system. In the following activity, you will select your favorite color from the given set of colors.
+                        <br><br>
+                        <strong > Step-by-Step Instruction: </strong> 
+                        <ol style="padding-top:1.2rem;">
+                            <li>Select number of colors to choose from (From the dropdown)</li>
+                            <li>All the colors would be black right now, click on start for the colors to show up</li>
+                            <li>Click on the shade of color you like the most</li>
+                            <li>Your time will be saved for this trial, you can proceed to do the trial more number of times by hitting start again.</li>
+                            <li>Or, you can proceed by selecting a higher number of choices from the dropdown</li>
+                            <li>Complete the activity for varying number of color choices to see how your decision time changed</li>
+                        </ol>
+                      
+                    </div>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+                            <br><br>
 
-</body>
+                            <label for="linear">Set number of colors to choose from: </label>
+                            <select class="DropdownClass" name="Count" id="linear">
+                                    <option value="" selected disabled hidden>Choose here</option>
+                                    <option value="2">2 colors</option>
+                                    <option value="3">3 colors</option>
+                                    <option value="4">4 colors</option>
+                                    <option value="5">5 colors</option>
+                                    <option value="6">6 colors</option>
+                                    <option value="7">7 colors</option>
+                                    <option value="8">8 colors</option>
+
+                            </select>
+
+                            <button class="linearButton">Start</button>
+
+                            <br><br>
+
+                            <div class="showLinear">
+
+                                <svg class="CommonAttribute" width="240" height="240">
+                                    <rect width="200" height="200" rx="15" ry="15"  />
+                                </svg>
+                                <svg  class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" rx="15" ry="15"  />
+                                </svg>
+                                <svg  class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" rx="15" ry="15" />
+                                </svg>
+                                <svg  class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" rx="15" ry="15" />
+                                </svg>
+                                <svg  class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" rx="15" ry="15"  />
+                                </svg>
+                                <svg class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" rx="15" ry="15" />
+                                </svg>
+                                <svg  class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" rx="15" ry="15" />
+                                </svg>
+                                <svg  class="CommonAttribute" width="240" height="240">
+                                        <rect width="200" height="200" rx="15" ry="15" />
+                                </svg>
+
+                            </div>
+
+
+
+                            <div id="timeLinear">Time taken: </div>
+                            <div id="avgTimeLinear">Current average time for these number of choices is: </div>
+
+
+
+                            <div id="linearAvgGraph">
+
+                            </div>
+
+                            <br><br>
+
+                   
+                </div>
+    
+                
+        </div>
+            <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+            <script src="https://d3js.org/d3.v4.min.js"></script>
+
+            <script src="js/c3.min.js"></script>
+
+
+        <script type="text/javascript" src="js/app.js"></script>
+    </body>
 </html>
