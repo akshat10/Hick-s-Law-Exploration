@@ -9,6 +9,8 @@ var endTime;
 
 var currentIndex;
 
+var scatterExist = false;
+
 var times = {
     2:[],
     3:[],
@@ -42,7 +44,6 @@ $(".DropdownClass").change(function () {
     if ($(this).attr('name') == 'Count') {
         var number = $(this).val();
         currentIndex = number;
-
         $('.CommonAttribute').hide().slice( 0, number ).show();
         $('.CommonAttribute').each(function(index){
             $(this).css("fill", "black");
@@ -52,18 +53,16 @@ $(".DropdownClass").change(function () {
 
 $(".linearButton").click(function(){
 
-
-
     $('.CommonAttribute').each(function(index){
         $(this).css("fill",'#'+(Math.random()*0xFFFFFF<<0).toString(16));
     });
 
-        startTime = new Date().getTime();
+    startTime = new Date().getTime();
 
 });
 
 $(".CommonAttribute").click(function(){
-    something();
+    // something();
     endTime = new Date().getTime();
 
     scatterTimes.push({"x": currentIndex, "y": (endTime - startTime), "color": $(this).css("fill") });
@@ -83,8 +82,8 @@ $(".CommonAttribute").click(function(){
     $('.CommonAttribute').each(function(index){
         $(this).css("fill", "black");
     });
-    updateScatterPlot();
 
+    updateScatterPlot(scatterTimes);
     
   
 
@@ -108,158 +107,157 @@ function shuffle(array) {
     }
   
     return array;
-  }
+}
 
 
 var average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
 
-var scatterLinearX = [];
-var scatterLinearY = [];
 
-var something = function(){
-    scatterLinearX = [];
-    scatterLinearY = [];
-    for(index in times){
-        for( var i = 0 ; i < times[index].length ; i++){
-            scatterLinearX.push(+index);
-            scatterLinearY.push(times[index][i]);
-        }
-    }
-
-}
 
 
 $(document).ready(function() {
-    makeScatterPlot();
+    makeScatterPlot([])
 });
 
 
-var updateScatterPlot = () => {
-
-
-
- // Select the section we want to apply our changes to
- var svg = d3.select(".michart");
-
- // Make the changes
-    //  svg.select(".line")   // change the line
-    //      .duration(750)
-    //      .attr("d", valueline(data));
-    //  svg.select(".x.axis") // change the x axis
-    //      .duration(750)
-    //      .call(xAxis);
-    //  svg.select(".y.axis") // change the y axis
-    //      .duration(750)
-    //      .call(yAxis);
-
+var updateScatterPlot = (data) => {
     var margin = {top: 20, right: 20, bottom: 30, left: 70},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
+  
+
+
+    var x = d3.scaleLinear().range([0, width]);
+  
+    var y = d3.scaleLinear().range([height, 0]);
+  
+  
+        var xAxis = d3.axisBottom(x).ticks(5);
+  
+        var yAxis = d3.axisLeft(y);
+        
+                x.domain([2,9]);
+                y.domain([300,1200]);
+  
+      var chart = d3.select("#finalGraph").attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      chart.selectAll(".dot")
+      .data(data)
+      .enter().append("circle")
+      .attr("class", "dot")
+      .attr("r", 3.5)
+      .attr("cx", function(d) { return x(d.x); })
+      .attr("cy", function(d) { return y(d.y); })
+      .style("fill", function(d) { return "rgb(169,169,169)"; })
+      .on("mouseover", function(d) {
+        tooltip.transition()
+            .duration(200)
+            .style("opacity", .9);
+        tooltip.html(d["x"] + "<br/> (" + (d.x) 
+            + ", " + (d.y) + ")")
+            .style("left", (d3.event.pageX + 5) + "px")
+            .style("top", (d3.event.pageY - 28) + "px");
+    })
+    .on("mouseout", function(d) {
+        tooltip.transition()
+            .duration(500)
+            .style("opacity", 0);
+    });
     
-    var xValue = function(d) { return d.x;}, // data -> value
-    xScale = d3.scale.linear().range([0, width]), // value -> display
-    xMap = function(d) { return xScale(xValue(d));}, // data -> display
-    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+    if(!scatterExist){
+    var lg = calcLinear(data, "x", "y", d3.min(data, function(d){ return d.x}), d3.max(data, function(d){ return d.y}));
+      chart.append("line")
+      .attr("id","regLine")
+      .attr("class", "regression")
+      .attr("x1", x(lg.ptA.x))
+      .attr("y1", y(lg.ptA.y))
+      .attr("x2", x(lg.ptB.x))
+      .attr("y2", y(lg.ptB.y));
+      scatterExist = true;
+    }
 
-// setup y
-var yValue = function(d) { return d.y;}, // data -> value
-    yScale = d3.scale.linear().range([height, 0]), // value -> display
-    yMap = function(d) { return yScale(yValue(d));}, // data -> display
-    yAxis = d3.svg.axis().scale(yScale).orient("left");
+      else{
 
+        var lg = calcLinear(data, "x", "y", d3.min(data, function(d){ return d.x}), d3.max(data, function(d){ return d.y}));
+        d3.select("#regLine")
+            .transition()
+            .attr("x1", x(lg.ptA.x))
+            .attr("y1", y(lg.ptA.y))
+            .attr("x2", x(lg.ptB.x))
+            .attr("y2", y(lg.ptB.y));
+      }
+      
 
+        var tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
+        
 
-    svg.selectAll(".dot")
-        .data(scatterTimes)
-        .enter().append("circle")
-        .attr("class", "dot")
-        .attr("r", 3.5)
-        .attr("cx", xMap)
-        .attr("cy", yMap)
-        .style("fill", function(d) { return d.color;}) 
-        .on("mouseover", function(d) {
-            tooltip.transition()
-                .duration(200)
-                .style("opacity", .9);
-            tooltip.html(d["x"] + "<br/> (" + xValue(d) 
-                + ", " + yValue(d) + ")")
-                .style("left", (d3.event.pageX + 5) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-        })
-        .on("mouseout", function(d) {
-            tooltip.transition()
-                .duration(500)
-                .style("opacity", 0);
-        });
 
 };
 
 
-var makeScatterPlot = () => {
-    
-    var margin = {top: 20, right: 20, bottom: 30, left: 70},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-
-    /* 
-    * value accessor - returns the value to encode for a given data object.
-    * scale - maps value to a visual display encoding, such as a pixel position.
-    * map function - maps from data value to display value
-    * axis - sets up axis
-    */ 
-
-    // setup x 
-    var xValue = function(d) { return d.x;}, // data -> value
-        xScale = d3.scale.linear().range([0, width]), // value -> display
-        xMap = function(d) { return xScale(xValue(d));}, // data -> display
-        xAxis = d3.svg.axis().scale(xScale).orient("bottom");
-
-    // setup y
-    var yValue = function(d) { return d.y;}, // data -> value
-        yScale = d3.scale.linear().range([height, 0]), // value -> display
-        yMap = function(d) { return yScale(yValue(d));}, // data -> display
-        yAxis = d3.svg.axis().scale(yScale).orient("left");
-
-    // setup fill color
-
-    // var cValue = function(d) { return d.Manufacturer;},
-    //     color = d3.scale.category10();
-
-
+var makeScatterPlot = (data) => {
     
 
-    // add the graph canvas to the body of the webpage
-    var svg = d3.select("#linearAvgGraph").append("svg")
-        .attr("class","michart")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+var margin = {top: 20, right: 20, bottom: 30, left: 70},
+  width = 960 - margin.left - margin.right,
+  height = 500 - margin.top - margin.bottom;
 
-    // add the tooltip area to the webpage
-    var tooltip = d3.select("body").append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
+      var x = d3.scaleLinear()
+          .range([0, width]);
 
-    // load data
-    // d3.csv("cereal.csv", function(error, data) {
-
-    // // change string (from CSV) into number format
-    // data.forEach(function(d) {
-    //     d.Calories = +d.Calories;
-    //     d["Protein (g)"] = +d["Protein (g)"];
-    // //    console.log(d);
-    // });
+      var y = d3.scaleLinear()
+          .range([height, 0]);
 
 
+      var xAxis = d3.axisBottom(x).ticks(5);
 
-    // don't want dots overlapping axis, so add in buffer to data domain
-    xScale.domain([2,10]);
-    yScale.domain([300, 1500]);
+      var yAxis = d3.axisLeft(y);
+      
+      x.domain([2,9]);
+      y.domain([300,1200]);
 
-    // x-axis
-    svg.append("g")
+      var chart = d3.select("#linearAvgGraph").append("svg")
+          .attr("id","finalGraph")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+        chart.selectAll(".dot")
+        .data(data)
+        .enter().append("circle")
+        .attr("class", "dot")
+        .attr("r", 3.5)
+        .attr("cx", function(d) { return x(d.x); })
+        .attr("cy", function(d) { return y(d.y); })
+        .style("fill", function(d) { return "rgb(169,169,169)"; })
+        .on("mouseover", function(d) {
+          tooltip.transition()
+              .duration(200)
+              .style("opacity", .9);
+          tooltip.html(d["x"] + "<br/> (" + (d.x) 
+              + ", " + (d.y) + ")")
+              .style("left", (d3.event.pageX + 5) + "px")
+              .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on("mouseout", function(d) {
+          tooltip.transition()
+              .duration(500)
+              .style("opacity", 0);
+      });
+
+
+      
+      
+        chart.append("g")
+        .attr("class", "axis")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
@@ -268,70 +266,114 @@ var makeScatterPlot = () => {
         .attr("x", width)
         .attr("y", -6)
         .style("text-anchor", "end")
-        .text("Number of Choices");
+        .text("Number of Choices (colors)");
 
-    // y-axis
-    svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-        .append("text")
-        .attr("class", "label")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("Time taken (ms)");
+        chart.append("g")
+        .attr("class", "axis")
+            .attr("class", "y axis")
+            .call(yAxis)
+          .append("text")
+            .attr("class", "label")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("Time Taken (in ms)");
 
-    // draw dots
-    svg.selectAll(".dot")
-        .data(scatterTimes)
-        .enter().append("circle")
-        .attr("class", "dot")
-        .attr("r", 3.5)
-        .attr("cx", xMap)
-        .attr("cy", yMap)
-        .style("fill", function(d) { return d.color;}) 
-        .on("mouseover", function(d) {
-            tooltip.transition()
-                .duration(200)
-                .style("opacity", .9);
-            tooltip.html(d["x"] + "<br/> (" + xValue(d) 
-                + ", " + yValue(d) + ")")
-                .style("left", (d3.event.pageX + 5) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-        })
-        .on("mouseout", function(d) {
-            tooltip.transition()
-                .duration(500)
-                .style("opacity", 0);
-        });
+        var tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
-    // draw legend
-    var legend = svg.selectAll(".legend")
-        .data(color.domain())
-        .enter().append("g")
-        .attr("class", "legend")
-        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+       
 
-    // draw legend colored rectangles
-    legend.append("rect")
-        .attr("x", width - 18)
-        .attr("width", 18)
-        .attr("height", 18)
-        .style("fill", color);
 
-    // draw legend text
-    legend.append("text")
-        .attr("x", width - 24)
-        .attr("y", 9)
-        .attr("dy", ".35em")
-        .style("text-anchor", "end")
-        .text(function(d) { return d;});
+
+
+ 
+
+   
+
+ 
 
 }
 
 
-var makeScatterPlot2 = () =>{
-  
-};
 
+function calcLinear(data, x, y, minX, minY){
+    /////////
+    //SLOPE//
+    /////////
+  
+    // Let n = the number of data points
+    var n = data.length;
+    console.log(n);
+  
+    // Get just the points
+    var pts = [];
+    data.forEach(function(d,i){
+      var obj = {};
+      obj.x = +d[x];
+      obj.y = d[y];
+      obj.mult = obj.x*obj.y;
+      pts.push(obj);
+    });
+  
+    console.log(pts);
+  
+    // Let a equal n times the summation of all x-values multiplied by their corresponding y-values
+    // Let b equal the sum of all x-values times the sum of all y-values
+    // Let c equal n times the sum of all squared x-values
+    // Let d equal the squared sum of all x-values
+    var sum = 0;
+    var xSum = 0;
+    var ySum = 0;
+    var sumSq = 0;
+    
+    pts.forEach(function(pt){
+      sum = sum + pt.mult;
+      xSum = xSum + pt.x;
+      ySum = ySum + pt.y;
+      sumSq = sumSq + (pt.x * pt.x);
+    });
+  
+    var a = sum * n;
+    var b = xSum * ySum;
+    var c = sumSq * n;
+    var d = xSum * xSum;
+  
+    // Plug the values that you calculated for a, b, c, and d into the following equation to calculate the slope
+    // slope = m = (a - b) / (c - d)
+    var m = (a - b) / (c - d);
+  
+    /////////////
+    //INTERCEPT//
+    /////////////
+  
+    // Let e equal the sum of all y-values
+    var e = ySum;
+  
+    // Let f equal the slope times the sum of all x-values
+    var f = m * xSum;
+  
+    // Plug the values you have calculated for e and f into the following equation for the y-intercept
+    // y-intercept = b = (e - f) / n
+    var b = (e - f) / n;
+  
+    // Print the equation below the chart
+  
+    // return an object of two points
+    // each point is an object with an x and y coordinate
+    return {
+      ptA : {
+        x: minX,
+        y: m * minX + b
+      },
+      ptB : {
+        y: minY,
+        x: (minY - b) / m
+      }
+    }
+  
+  }
+  
+  

@@ -1,8 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,600');
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:100,300,400,600');
 
 *{
     box-sizing: border-box;
     font-family: 'IBM Plex Sans', sans-serif;
+}
+
+
+.scaleme{
+    transform: scale(.8);
+    transform-origin: 0 0;
 }
 
 body{
@@ -111,3 +117,17 @@ body{
 ol li{
     padding-left: 3.2rem;
 }
+
+.regression {
+    stroke-width: 2px;
+    stroke: steelblue;
+    stroke-dasharray: 10,5;
+  }
+
+  .axis { 
+      font-size: 1.8rem; 
+      font-weight: 100;
+
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
